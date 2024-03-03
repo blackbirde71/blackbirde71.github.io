@@ -1,0 +1,696 @@
+---
+// Supports weights 300-700
+import "@fontsource-variable/space-grotesk";
+// Supports weights 100-900
+import "@fontsource-variable/jost";
+// Supports weights 100-900
+import "@fontsource-variable/lexend-deca";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+	</head>
+	<body>
+		<div class="background">
+			<div class="intro">
+				<div class="row">
+					<div class="block"></div>
+					<div class="names">
+						<p class="h name" id="firstname">𝔄rmie</p>
+						<p class="h name" id="lastname">ℜysmakhanov</p>
+					</div>
+					<div class="contacts">
+						<p class="t">ar21@williams.edu</p>
+					</div>
+					<div class="block"></div>
+				</div>
+				<div class="block"></div>
+				<div class="block"></div>
+				<div class="row">
+					<div class="box no-left center">
+						<p class="t bio">
+							I am a freshman at Williams College studying
+							Mathematics and Computer Science. Here are my
+							software projects/projects with code components.
+						</p>
+					</div>
+					<div class="box no-right no-left">
+						<ul class="t menu">
+							<li>social map</li>
+							<li>diary web app</li>
+							<li>handwriting teaching device</li>
+							<li>mobile app</li>
+							<li>statistics/geography project</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- project 1 -->
+			<div>
+				<div class="block"></div>
+				<p class="h project-title">
+					<b>Sol: an interactive map of campus events</b>
+				</p>
+				<div class="block"></div>
+				<div class="row">
+					<div class="box no-left">
+						<img class="screenshot" src="/webapp/sol1.png" />
+					</div>
+					<p class="t center">
+						I am currently working with my friend on a website to
+						improve campus life. Users will be able to see, create,
+						and join the events on campus. We are using Flutter for
+						the front-end, Go (Echo framework) for the back-end, and
+						MongoDB for the database. I set up our own tile server
+						to display a customized map.
+					</p>
+					<div class="box no-right">
+						<img class="screenshot" src="/webapp/sol2.png" />
+					</div>
+				</div>
+			</div>
+			<!-- project 2 -->
+			<div>
+				<div class="block"></div>
+				<p class="h project-title">
+					<b>
+						Personal diary: web app with note-taking and
+						mood-tracking features
+					</b>
+				</p>
+				<div class="block"></div>
+				<div class="box" style="margin: 45px; margin-top: 0">
+					<div class="gif-frame">
+						<img class="gif" src="/webapp/Organizer Gif.gif" />
+					</div>
+				</div>
+				<p class="t">
+					As part of my IB Computer Science class, I created a
+					personalized web app that integrates note-taking and
+					mood-tracking functionalities into a seamless personal diary
+					experience.
+				</p>
+				<div class="block"></div>
+				<details class="spoiler">
+					<summary class="h">Details</summary>
+					<div class="block"></div>
+					<p class="t">
+						The front-end of the web app is built using React
+						(including Recharts for data visualization), providing a
+						responsive and intuitive user interface. On the backend,
+						Express.js handles the server-side operations and
+						Mongoose controls storing and retrieving data from the
+						MongoDB database.
+					</p>
+					<div class="block"></div>
+					<div class="row gallery" style="gap: 45px">
+						<img class="gallery-img" src="/webapp/Flowchart1.png" />
+						<img class="gallery-img" src="/webapp/Flowchart2.png" />
+						<img
+							class="gallery-img"
+							src="/webapp/MigrationChart.png"
+						/>
+					</div>
+					<div class="block"></div>
+					<p class="t">
+						I adhered to the principles of the engineering design
+						process. From researching the problem and specifying
+						design requirements to the preliminary design and user
+						testing, each step was a deliberate and iterative
+						progression. An example is the script to migrate
+						existing notes from Google Keep included after user
+						feedback to streamline the transition process.
+					</p>
+				</details>
+			</div>
+			<div class="block"></div>
+
+			<hr />
+			<!-- project 3 -->
+			<div>
+				<div class="block"></div>
+				<p class="h project-title">
+					<b>
+						Device for teaching handwriting to blind and visually
+						impaired learners
+					</b>
+				</p>
+				<div class="block"></div>
+				<div class="row">
+					<div class="block"></div>
+					<div class="box center no-right">
+						<p class="t">
+							A device that autonomously teaches handwriting to
+							blind and visually impaired learners. I used G-code
+							to program the movement of a mechanism based on
+							CNC-routers and JavaScript for voice user interface.
+						</p>
+					</div>
+					<img class="gallery-img" src="/webapp/jazgysh.jpg" />
+				</div>
+				<div class="block"></div>
+				<details class="spoiler">
+					<summary class="h">Details</summary>
+					<div class="block"></div>
+					<div style="padding-right: 45px">
+						<img
+							style="width: 100%"
+							src="/webapp/JazgyshScheme.png"
+						/>
+						<div class="block"></div>
+					</div>
+					<p class="t">
+						Jazgysh is a solution for empowering the blind and
+						visually impaired to learn handwriting autonomously. The
+						project unfolded in several stages, beginning with
+						in-depth research on the educational challenges faced by
+						visually impaired and blind learners, as well as the
+						existing solutions. We then formulated a novel teaching
+						method, implemented the necessary hardware and software
+						using Computer Numerical Control (CNC) router
+						technology.
+						<br />
+						<br />
+						I wrote instructions for the pen movement using G-code and
+						a voice user interface using JavaScript to integrate tactile
+						and audial feedback that enhances users’ motor skills. The
+						research culminated in a cost-effective (~$100), unique alternative
+						for handwriting education, proven effective through a two-stage
+						experiment. Jazgysh is a versatile, affordable tool suitable
+						for individuals or groups of various ages, requiring minimal
+						external assistance.
+					</p>
+				</details>
+			</div>
+			<div class="block"></div>
+
+			<hr />
+			<!-- project 4 -->
+			<div>
+				<div class="block"></div>
+				<p class="h project-title">
+					<b> Rando: mobile app for randonauting</b>
+				</p>
+				<div class="block"></div>
+				<div class="row">
+					<p class="t">
+						I developed an app for randonauting: generating random
+						geographic coordinates and then exploring the area
+						associated with those coordinates. The idea is that by
+						introducing an element of randomness into the process,
+						individuals may experience novel and unexpected
+						discoveries, leading to a sense of adventure and
+						exploration.
+					</p>
+					<p class="t">
+						I used React Native for the front end, set up Amazon Web
+						Services instances (to serve map tiles using
+						OpenStreetMap data and to provide routing instructions
+						through Open Source Routing Machine). I also used
+						trigonometry cartesian coordinates into latitude and
+						longitude points.
+					</p>
+				</div>
+				<div class="block"></div>
+				<div class="box no-left no-right">
+					<div class="row" style="justify-content: space-evenly">
+						<img class="screenshot" src="/webapp/rando1.png" />
+						<img class="screenshot" src="/webapp/rando2.png" />
+						<img class="screenshot" src="/webapp/rando3.png" />
+					</div>
+				</div>
+			</div>
+			<!-- project 5 -->
+			<div>
+				<div class="row">
+					<div class="block" style="flex-grow: 1">
+						<p class="h w project-title">
+							<b> Rando: mobile app for randonauting</b>
+						</p>
+					</div>
+					<div class="block" style="flex-grow: 1">
+						<img class="gallery-img" src="/webapp/geo2.png" />
+					</div>
+				</div>
+				<div class="block"></div>
+			</div>
+		</div>
+
+		<!-- <div class="proj1 w">
+				<p class="h w project-title">
+					<b>Sol: an interactive map of campus events</b>
+				</p>
+			</div>
+			<div class="proj2 w">
+				<p class="h w project-title">
+					<b>Web App with Note-taking and Mood-tracking Features</b>
+				</p>
+				<div class="block"></div>
+				<div class="proj2-summary">
+					<div class="gif-frame2">
+						<img class="gif" src="/webapp/Organizer Gif.gif" />
+					</div>
+					<p class="t proj-text">
+						As part of my IB Computer Science class, I created a
+						personalized web app that integrates note-taking and
+						mood-tracking functionalities into a seamless personal
+						diary experience.
+					</p>
+					<div class="block"></div>
+				</div>
+				<details class="proj2-spoiler">
+					<summary class="h">Details</summary>
+					<div class="block"></div>
+					<p class="t descr">
+						The front-end of the web app is built using React
+						(including Recharts for data visualization), providing a
+						responsive and intuitive user interface. On the backend,
+						Express.js handles the server-side operations and
+						Mongoose controls storing and retrieving data from the
+						MongoDB database.
+					</p>
+					<div class="flowchart-row">
+						<img class="flowchart" src="/webapp/Flowchart1.png" />
+						<img class="flowchart" src="/webapp/Flowchart2.png" />
+					</div>
+					<p class="t descr">
+						I adhered to the systematic principles of the
+						engineering design process. From researching the problem
+						and specifying design requirements to the preliminary
+						design and user testing, each step was a deliberate and
+						iterative progression. An example is the script to
+						migrate existing notes from Google Keep included after
+						user feedback to streamline the transition process.
+					</p>
+					<div class="flowchart-row">
+						<img
+							class="flowchart"
+							src="/webapp/MigrationChart.png"
+						/>
+					</div>
+				</details>
+				<div class="block"></div>
+			</div>
+			<div class="proj3 w">
+				<p class="h w project-title">
+					<b>
+						Device for Teaching Handwriting to Blind and Visually
+						Impaired Learners
+					</b>
+				</p>
+				<div class="block"></div>
+				<div class="proj2-summary">
+					<div class="block"></div>
+					<p class="t proj-text">
+						A device that autonomously teaches handwriting to blind
+						and visually impaired learners. I used G-code to program
+						the movement of a mechanism based on CNC-routers and
+						JavaScript for voice user interface.
+					</p>
+					<div class="gif-frame3">
+						<img class="gif3" src="/webapp/jazgysh.jpg" />
+					</div>
+				</div>
+				<details class="proj2-spoiler">
+					<summary class="h">Details</summary>
+					<div class="block"></div>
+					<div class="flowchart-row">
+						<img
+							class="flowchart"
+							src="/webapp/JazgyshScheme.png"
+						/>
+					</div>
+					<p class="t descr">
+						Jazgysh is a solution for empowering the blind and
+						visually impaired to learn handwriting autonomously. The
+						project unfolded in several stages, beginning with
+						in-depth research on the educational challenges faced by
+						visually impaired and blind learners, as well as the
+						existing solutions. We then formulated a novel teaching
+						method, implemented the necessary hardware and software
+						using Computer Numerical Control (CNC) router
+						technology. I wrote instructions for the pen movement
+						using G-code and a voice user interface using JavaScript
+						to integrate tactile and audial feedback that enhances
+						users’ motor skills. The research culminated in a
+						cost-effective (~$100), unique alternative for
+						handwriting education, proven effective through a
+						two-stage experiment. Jazgysh is a versatile, affordable
+						tool suitable for individuals or groups of various ages,
+						requiring minimal external assistance.
+					</p>
+				</details>
+				<div class="block"></div>
+			</div>
+			<div class="proj4">
+				<p class="h project-title">
+					<b> Rando: Mobile App for Randonauting </b>
+				</p>
+				<div class="block"></div>
+				<div class="proj2-summary">
+					<div class="block"></div>
+						<div class="flowchart-row4">
+							<img class="flowchart" src="/webapp/rando1.png" />
+							<img class="flowchart" src="/webapp/rando2.png" />
+							<img class="flowchart" src="/webapp/rando3.png" />
+						</div>
+					<div class="block"></div>
+					<p class="t proj-text">
+						I developed an app for randonauting: generating random
+						geographic coordinates and then exploring the area
+						associated with those coordinates. The idea
+						is that by introducing an element of randomness into the
+						process, individuals may experience novel and unexpected
+						discoveries, leading to a sense of adventure and
+						exploration. I used React Native for the front end, set
+						up Amazon Web Services instances (to serve map tiles
+						using OpenStreetMap data and to provide routing
+						instructions through Open Source Routing Machine). I
+						also used trigonometry cartesian coordinates into
+						latitude and longitude points.
+					</p>
+					<div class="block"></div>
+				</div>
+			</div>
+		</div>
+		<div class="nav">
+			<div class="stripe-proj1"></div>
+			<div class="stripe-proj2"></div>
+			<div class="stripe-proj3"></div>
+			<div class="stripe-proj4"></div>
+			<div class="stripe-proj5"></div>
+		</div> -->
+	</body>
+</html>
+
+<style>
+	/* @keyframes shiftFirstName {
+			from {
+				transform: translateX(0px);
+			}
+			to {
+				transform: translateX(900px);
+			}
+		}
+		@keyframes shiftLastName {
+			from {
+				transform: translateX(0px);
+			}
+			to {
+				transform: translateX(-900px);
+			}
+		} */
+	@media (max-width: 800px) {
+		.row {
+			flex-direction: column;
+			gap: 45px;
+		}
+	}
+	.h {
+		font-family: "Space Grotesk Variable", sans-serif;
+		font-weight: 500;
+		font-size: 4rem;
+		word-wrap: break-word;
+	}
+	.t {
+		font-family: "Lexend Deca Variable", sans-serif;
+		font-size: 2rem;
+		word-wrap: break-word;
+		padding-left: 45px;
+		padding-right: 45px;
+	}
+	/* .d {
+			font-family: "Lexend Deca Variable", sans-serif;
+			font-size: 1.2rem;
+			word-wrap: break-word;
+			padding-left: 45px;
+			padding-right: 45px;
+		} */
+	.w {
+		color: white;
+	}
+	.descr {
+		font-size: 16pt;
+	}
+	*,
+	html {
+		margin: 0;
+		padding: 0;
+		scrollbar-color: #0f0f0f #fff !important;
+		/* overflow-x: hidden; */
+	}
+	/* html::-webkit-scrollbar {
+			width: 120px;
+		} */
+	body {
+		margin: 0;
+		padding: 0;
+		/* display: flex; */
+		/* flex-direction: row; */
+		overflow-x: hidden;
+		color: white;
+	}
+	ul {
+		padding-left: 40px;
+	}
+	li {
+		margin: 10px;
+	}
+	hr {
+		height: 3px;
+		border: none;
+		background-color: white;
+	}
+	.background {
+		display: flex;
+		flex-direction: column;
+		background-color: #0f0f0f;
+	}
+	.row {
+		display: flex;
+	}
+	.no-left {
+		border-left: none !important;
+	}
+	.no-right {
+		border-right: none !important;
+	}
+	.box {
+		border: 3px solid white;
+	}
+	.block {
+		flex-shrink: 0;
+		width: 45px;
+		height: 45px;
+	}
+	.center {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	/* INTRO */
+	.intro {
+		display: flex;
+		flex-direction: column;
+	}
+	.name {
+		line-height: 0.9;
+		font-size: 8rem;
+	}
+	#firstname {
+		text-shadow:
+			4px 0px 0px #fc60a8,
+			-4px 0px 0px #7a28cb;
+		/* margin-left: 15px; */
+		animation-name: shiftFirstName;
+		animation-duration: 1ms;
+		animation-timeline: scroll(block nearest);
+	}
+	#lastname {
+		text-shadow:
+			4px 0px 0px #fc60a8,
+			-4px 0px 0px #7a28cb;
+		align-self: self-end;
+		/* margin-right: 15px; */
+		animation-name: shiftLastName;
+		animation-duration: 1ms;
+		animation-timeline: scroll(block nearest);
+	}
+	.contacts {
+		flex: 1;
+		display: flex;
+		justify-content: end;
+		align-items: center;
+		min-width: 0;
+	}
+	.bio {
+		padding: 45px;
+		/* line-height: ; */
+	}
+	.menu {
+		font-size: 1.5rem;
+		margin-top: 45px;
+		margin-bottom: 45px;
+	}
+
+	/* PROJECT 1 */
+
+	.screenshot {
+		height: 75vh;
+		padding: 45px;
+	}
+
+	/* PROJECT 2 */
+
+	.gif-frame {
+		flex: 3;
+		padding: 45px;
+		aspect-ratio: 1920 / 1000;
+	}
+	.gif {
+		object-fit: cover;
+		object-position: 50% 0%;
+		height: 100%;
+		width: 100%;
+	}
+	.spoiler {
+		align-self: self-start;
+		/* padding-left: 45px;
+			padding-right: 45px; */
+		display: flex;
+		flex-direction: column;
+		max-width: 100%;
+	}
+	.gallery {
+		overflow-x: scroll;
+	}
+	.gallery-img {
+		height: 70vmin;
+		object-fit: scale-down;
+	}
+
+	.proj1 {
+		width: calc(100% + 3 * 100% / 85);
+		background-color: #494368;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	/* PROJECT 2 */
+
+	.proj2 {
+		width: calc(100% + 6 * 100% / 85);
+		background-color: #7a28cb;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.proj2-summary {
+		width: 100%;
+		display: flex;
+	}
+	.proj-text {
+		flex: 1;
+		font-size: 24pt;
+	}
+	.proj2-spoiler {
+		align-self: self-start;
+		padding-left: 45px;
+		padding-right: 45px;
+		color: white;
+		display: flex;
+		flex-direction: column;
+		max-width: 100%;
+	}
+	.flowchart-row {
+		flex: 1;
+		display: flex;
+		padding-top: 45px;
+		padding-bottom: 45px;
+		height: 60vh;
+		width: 100%;
+	}
+	.flowchart {
+		object-fit: contain;
+		height: 100%;
+		width: 100%;
+		padding-inline-end: 45px;
+	}
+
+	/* PROJECT 3 */
+
+	.proj3 {
+		width: calc(100% + 9 * 100% / 85);
+		background-color: #fc60a8;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.gif-frame3 {
+		flex: 2;
+		padding: 45px;
+		padding-top: 0;
+		aspect-ratio: 16 / 10;
+	}
+
+	.gif3 {
+		object-fit: cover;
+		object-position: 50% 75%;
+		height: 100%;
+		width: 100%;
+	}
+
+	/* PROJECT 4 */
+
+	.proj4 {
+		width: calc(100% + 12 * 100% / 85);
+		background-color: #f4b393;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.flowchart-row4 {
+		flex: 2;
+		display: flex;
+		height: 60vh;
+		width: 100%;
+	}
+
+	/* NAVIGATION STRIPES */
+	.nav {
+		position: static;
+		flex: 15;
+		/* background-color: blue; */
+		display: flex;
+	}
+	.stripe-proj1 {
+		flex: 1;
+		background-color: #494368;
+	}
+	.stripe-proj2 {
+		flex: 1;
+		background-color: #7a28cb;
+	}
+	.stripe-proj3 {
+		flex: 1;
+		background-color: #fc60a8;
+	}
+	.stripe-proj4 {
+		flex: 1;
+		background-color: #f4b393;
+	}
+	.stripe-proj5 {
+		flex: 1;
+		background-color: #ceec97;
+	}
+</style>
