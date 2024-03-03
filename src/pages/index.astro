@@ -42,24 +42,22 @@ import "@fontsource-variable/lexend-deca";
 					</div>
 					<div class="box no-right no-left">
 						<ul class="t menu">
-							<li>social map</li>
-							<li>diary web app</li>
-							<li>handwriting teaching device</li>
-							<li>mobile app</li>
-							<li>statistics/geography project</li>
+							<li><a href="#proj1">social map</a></li>
+							<li><a href="#proj2">diary web app</a></li>
+							<li><a href="#proj3">handwriting teaching device</a></li>
+							<li><a href="#proj4">mobile app</a></li>
+							<li><a href="#proj5">statistics/geography project</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
 			<!-- project 1 -->
-			<div>
+			<div id="proj1">
 				<div class="block"></div>
-				<p class="h project-title">
-					<b>Sol: an interactive map of campus events</b>
-				</p>
+				<p class="h">Sol: an interactive map of campus events</p>
 				<div class="block"></div>
 				<div class="row">
-					<div class="box no-left">
+					<div class="box no-left center">
 						<img class="screenshot" src="/webapp/sol1.png" />
 					</div>
 					<p class="t center">
@@ -70,19 +68,17 @@ import "@fontsource-variable/lexend-deca";
 						MongoDB for the database. I set up our own tile server
 						to display a customized map.
 					</p>
-					<div class="box no-right">
+					<div class="box no-right center">
 						<img class="screenshot" src="/webapp/sol2.png" />
 					</div>
 				</div>
 			</div>
 			<!-- project 2 -->
-			<div>
+			<div id="proj2">
 				<div class="block"></div>
-				<p class="h project-title">
-					<b>
-						Personal diary: web app with note-taking and
-						mood-tracking features
-					</b>
+				<p class="h">
+					Personal diary: web app with note-taking and mood-tracking
+					features
 				</p>
 				<div class="block"></div>
 				<div class="box" style="margin: 45px; margin-top: 0">
@@ -133,13 +129,11 @@ import "@fontsource-variable/lexend-deca";
 
 			<hr />
 			<!-- project 3 -->
-			<div>
+			<div id="proj3">
 				<div class="block"></div>
-				<p class="h project-title">
-					<b>
-						Device for teaching handwriting to blind and visually
-						impaired learners
-					</b>
+				<p class="h">
+					Device for teaching handwriting to blind and visually
+					impaired learners
 				</p>
 				<div class="block"></div>
 				<div class="row">
@@ -192,11 +186,9 @@ import "@fontsource-variable/lexend-deca";
 
 			<hr />
 			<!-- project 4 -->
-			<div>
+			<div id="proj4">
 				<div class="block"></div>
-				<p class="h project-title">
-					<b> Rando: mobile app for randonauting</b>
-				</p>
+				<p class="h">Rando: mobile app for randonauting</p>
 				<div class="block"></div>
 				<div class="row">
 					<p class="t">
@@ -218,7 +210,7 @@ import "@fontsource-variable/lexend-deca";
 					</p>
 				</div>
 				<div class="block"></div>
-				<div class="box no-left no-right">
+				<div class="box no-left no-right no-bottom">
 					<div class="row" style="justify-content: space-evenly">
 						<img class="screenshot" src="/webapp/rando1.png" />
 						<img class="screenshot" src="/webapp/rando2.png" />
@@ -227,28 +219,46 @@ import "@fontsource-variable/lexend-deca";
 				</div>
 			</div>
 			<!-- project 5 -->
-			<div>
+			<div id="proj5">
 				<div class="row">
-					<div class="block" style="flex-grow: 1">
-						<p class="h w project-title">
-							<b> Rando: mobile app for randonauting</b>
+					<div class="box center no-left" style="flex: 1">
+						<p class="h">
+							Statistics and data analysis for geography class
+							project
 						</p>
 					</div>
-					<div class="block" style="flex-grow: 1">
-						<img class="gallery-img" src="/webapp/geo2.png" />
+					<div
+						class="box no-left no-right"
+						style="flex: 2; padding: 45px"
+					>
+						<img style="width: 100%" src="/webapp/geo2.png" />
 					</div>
 				</div>
+				<img style="width: 100%" src="/webapp/geo1.png" />
+				<div class="block"></div>
+				<p class="t">
+					I conducted an analysis of the urban environment during a
+					field trip for my Geography class. Focusing on key
+					parameters such as noise levels, congestion, and built
+					environment quality, the project aimed to provide insights
+					into spatial inequality in terms of infrastructure and
+					living conditions between the neighborhoods of varying
+					affluence along one of the main avenues of the city.
+					Although it was not required for the class, I used the
+					Plotly library for Python for visualizations and NumPy,
+					Pandas, and SciPy for data manipulation.
+				</p>
 				<div class="block"></div>
 			</div>
 		</div>
 
-		<!-- <div class="proj1 w">
-				<p class="h w project-title">
+		<!-- <div class="proj1">
+				<p class="h">
 					<b>Sol: an interactive map of campus events</b>
 				</p>
 			</div>
-			<div class="proj2 w">
-				<p class="h w project-title">
+			<div class="proj2">
+				<p class="h">
 					<b>Web App with Note-taking and Mood-tracking Features</b>
 				</p>
 				<div class="block"></div>
@@ -297,8 +307,8 @@ import "@fontsource-variable/lexend-deca";
 				</details>
 				<div class="block"></div>
 			</div>
-			<div class="proj3 w">
-				<p class="h w project-title">
+			<div class="proj3">
+				<p class="h">
 					<b>
 						Device for Teaching Handwriting to Blind and Visually
 						Impaired Learners
@@ -349,7 +359,7 @@ import "@fontsource-variable/lexend-deca";
 				<div class="block"></div>
 			</div>
 			<div class="proj4">
-				<p class="h project-title">
+				<p class="h">
 					<b> Rando: Mobile App for Randonauting </b>
 				</p>
 				<div class="block"></div>
@@ -411,16 +421,23 @@ import "@fontsource-variable/lexend-deca";
 			flex-direction: column;
 			gap: 45px;
 		}
+		.box {
+			border-left: none !important;
+			border-right: none !important;
+		}
+		.gif-frame {
+			padding: 0px !important;
+		}
 	}
 	.h {
 		font-family: "Space Grotesk Variable", sans-serif;
-		font-weight: 500;
-		font-size: 4rem;
+		font-weight: 400;
+		font-size: clamp(7vmin, 4rem, 10vmin);
 		word-wrap: break-word;
 	}
 	.t {
 		font-family: "Lexend Deca Variable", sans-serif;
-		font-size: 2rem;
+		font-size: clamp(3vmin, 2rem, 4vmin);
 		word-wrap: break-word;
 		padding-left: 45px;
 		padding-right: 45px;
@@ -480,6 +497,9 @@ import "@fontsource-variable/lexend-deca";
 	}
 	.no-right {
 		border-right: none !important;
+	}
+	.no-bottom {
+		border-bottom: none !important;
 	}
 	.box {
 		border: 3px solid white;
@@ -545,6 +565,7 @@ import "@fontsource-variable/lexend-deca";
 	.screenshot {
 		height: 75vh;
 		padding: 45px;
+		object-fit: contain;
 	}
 
 	/* PROJECT 2 */
