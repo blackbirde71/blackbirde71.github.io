@@ -19,8 +19,9 @@ import "@fontsource-variable/lexend-deca";
 	<body>
 		<div class="background">
 			<div class="intro">
+				<div class="inv block"></div>
 				<div class="row">
-					<div class="block"></div>
+					<div class="inv block"></div>
 					<div class="names">
 						<p class="h name" id="firstname">𝔄rmie</p>
 						<p class="h name" id="lastname">ℜysmakhanov</p>
@@ -28,16 +29,17 @@ import "@fontsource-variable/lexend-deca";
 					<div class="contacts">
 						<p class="t">ar21@williams.edu</p>
 					</div>
-					<div class="block"></div>
+					<div class="inv block"></div>
 				</div>
-				<div class="block"></div>
-				<div class="block"></div>
+				<div class="inv block"></div>
+				<div class="inv block"></div>
 				<div class="row">
 					<div class="box no-left center">
 						<p class="t bio">
-							My name is Arman (Armie) Rysmakhanov. I am a
-							student at Williams College studying Mathematics
-							and Computer Science. Here are my software and academic projects.
+							My name is Arman (Armie) Rysmakhanov. I am a student
+							at Williams College studying Mathematics and
+							Computer Science. Here are my software and academic
+							projects.
 						</p>
 					</div>
 					<div class="box no-right no-left">
@@ -49,8 +51,12 @@ import "@fontsource-variable/lexend-deca";
 							</li>
 							<li><a href="#proj4">mobile app</a></li>
 							<li>
-								<a href="#proj5"
-									>statistics/geography project</a>
+								<a href="#proj5">data analysis in geography</a
+								>
+							</li>
+							<li>
+								<a href="#proj6">statistics project</a
+								>
 							</li>
 						</ul>
 					</div>
@@ -137,7 +143,8 @@ import "@fontsource-variable/lexend-deca";
 			<div id="proj3">
 				<div class="block"></div>
 				<p class="h">
-					Device for teaching handwriting to learners with blindness and visual impairment
+					Device for teaching handwriting to learners with blindness
+					and visual impairment
 				</p>
 				<div class="block"></div>
 				<div class="row">
@@ -226,10 +233,7 @@ import "@fontsource-variable/lexend-deca";
 			<div id="proj5">
 				<div class="row">
 					<div class="box center no-left" style="flex: 1">
-						<p class="h">
-							Statistics and data analysis for geography class
-							project
-						</p>
+						<p class="h">Fata analysis for Geography term paper</p>
 					</div>
 					<div
 						class="box no-left no-right"
@@ -252,6 +256,38 @@ import "@fontsource-variable/lexend-deca";
 					Plotly library for Python for visualizations and NumPy,
 					Pandas, and SciPy for data manipulation.
 				</p>
+				<div class="block"></div>
+			</div>
+			<!-- project 6 -->
+			<div id="proj6">
+				<div class="box no-left no-right no-bottom">
+					<div class="block"></div>
+					<p class="h">Statistical Modeling Class Project</p>
+				</div>
+				<div class="block"></div>
+				<p class="t">
+					In the aftermath of the Supreme Court decision on
+					affirmative action in college admissions, I and my team used
+					R to delve into the attitudes toward affirmative action
+					among Asian Americans at Williams College. This research was
+					aimed at understanding complex societal issues using
+					data-driven approaches. We designed and conducted a
+					representative survey, making inferences through hypothesis
+					testing.
+				</p>
+				<div class="block"></div>
+				<div
+					class="box no-left no-right no-bottom"
+					style="padding: 45px"
+				>
+					<div class="center">
+						<img
+							style="width: 100vh; max-width:100%; object-fit:contain"
+							src="/webapp/abstract.png"
+						/>
+					</div>
+				</div>
+
 				<div class="block"></div>
 			</div>
 		</div>
@@ -432,6 +468,12 @@ import "@fontsource-variable/lexend-deca";
 		.gif-frame {
 			padding: 0px !important;
 		}
+		.inv {
+			height: 0 !important;
+		}
+	}
+	.inv {
+		
 	}
 	.h {
 		font-family: "Space Grotesk Variable", sans-serif;
@@ -526,7 +568,7 @@ import "@fontsource-variable/lexend-deca";
 	}
 	.name {
 		line-height: 0.9;
-		font-size: 8rem;
+		font-size: clamp(7vmin, 8rem, 13vmin);
 	}
 	#firstname {
 		text-shadow:
@@ -562,6 +604,7 @@ import "@fontsource-variable/lexend-deca";
 		font-size: 1.5rem;
 		margin-top: 45px;
 		margin-bottom: 45px;
+		min-width: clamp(10vw, 400px, 70vw);
 	}
 
 	/* PROJECT 1 */
