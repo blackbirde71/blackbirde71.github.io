@@ -28,6 +28,12 @@ import "@fontsource-variable/lexend-deca";
 					</div>
 					<div class="contacts">
 						<p class="t">ar21@williams.edu</p>
+						<a href="https://github.com/blackbirde71">
+							<img class="logo" src="/webapp/github.png" />
+						</a>
+						<div class="block"></div>
+						<!-- <div class="inv block"></div>
+						<img class="logo" src="/webapp/linkedin.png" /> -->
 					</div>
 					<div class="inv block"></div>
 				</div>
@@ -45,18 +51,17 @@ import "@fontsource-variable/lexend-deca";
 					<div class="box no-right no-left">
 						<ul class="t menu">
 							<li><a href="#proj1">social map</a></li>
+							<li><a href="#proj1.2">blackjack engine</a></li>
 							<li><a href="#proj2">diary web app</a></li>
 							<li>
 								<a href="#proj3">handwriting teaching device</a>
 							</li>
 							<li><a href="#proj4">mobile app</a></li>
 							<li>
-								<a href="#proj5">data analysis in geography</a
-								>
+								<a href="#proj5">data analysis in geography</a>
 							</li>
 							<li>
-								<a href="#proj6">statistics project</a
-								>
+								<a href="#proj6">statistics project</a>
 							</li>
 						</ul>
 					</div>
@@ -71,19 +76,59 @@ import "@fontsource-variable/lexend-deca";
 					<div class="box no-left center">
 						<img class="screenshot" src="/webapp/sol1.png" />
 					</div>
-					<p class="t center">
+					<p class="t center" style="flex-direction: column">
 						I am currently working with my friend on a website to
 						improve campus life. Users will be able to see, create,
 						and join the events on campus. We are using Flutter for
 						the front-end, Go (Echo framework) for the back-end, and
 						MongoDB for the database. I set up our own tile server
 						to display a customized map.
+						<br />
+						<br />
+						<a href="https://sol-app.com">sol-app.com</a>
 					</p>
 					<div class="box no-right center">
 						<img class="screenshot" src="/webapp/sol2.png" />
 					</div>
 				</div>
 			</div>
+			<!-- project 1.2 -->
+			<div id="proj1.2">
+				<div class="block"></div>
+				<p class="h">Blackjack engine</p>
+				<div class="block"></div>
+				<p class="t">
+					I collaborated on a Blackjack engine using Monte Carlo tree
+					search (MCTS) published <a href="https://github.com/blackbirde71/MonteCarloSearchBlackjack">here</a>.
+				</p>
+				<div class="block"></div>
+				<details class="spoiler">
+					<summary class="h">Details</summary>
+					<div class="block"></div>
+					<p class="t">
+						The engine allows the user to play Blackjack alongside
+						the AI against a dealer following standard casino rules.
+						At the core of the AI is an abstract class implementing
+						the key components of MCTS, with a derived class
+						adapting it to the specific dynamics and rules of
+						Blackjack. On each turn, the MCTS algorithm selects the
+						most promising game state to explore using an upper
+						confidence bound that balances exploitation of
+						high-performing states with exploration of less visited
+						states. It then runs fast Monte Carlo simulations from
+						that state to a game outcome and backpropagates the
+						result to update its estimates for each preceding state.
+						Over many simulations, this allows the engine to build a
+						highly tuned decision tree for optimizing its Blackjack
+						play. Although MCTS may be an overkill for Blackjack, it
+						ultimately serves as a proof of concept and a stepping
+						stone for developing more complex game engines.
+					</p>
+					<div class="block"></div>
+				</details>
+			</div>
+			<div class="block"></div>
+			<hr />
 			<!-- project 2 -->
 			<div id="proj2">
 				<div class="block"></div>
@@ -137,7 +182,6 @@ import "@fontsource-variable/lexend-deca";
 				</details>
 			</div>
 			<div class="block"></div>
-
 			<hr />
 			<!-- project 3 -->
 			<div id="proj3">
@@ -233,7 +277,7 @@ import "@fontsource-variable/lexend-deca";
 			<div id="proj5">
 				<div class="row">
 					<div class="box center no-left" style="flex: 1">
-						<p class="h">Fata analysis for Geography term paper</p>
+						<p class="h">Data analysis for Geography term paper</p>
 					</div>
 					<div
 						class="box no-left no-right"
@@ -456,7 +500,7 @@ import "@fontsource-variable/lexend-deca";
 				transform: translateX(-900px);
 			}
 		} */
-	@media (max-width: 800px) {
+	@media (max-width: 800px), (orientation: portrait) {
 		.row {
 			flex-direction: column;
 			gap: 45px;
@@ -473,11 +517,10 @@ import "@fontsource-variable/lexend-deca";
 		}
 	}
 	.inv {
-		
 	}
 	.h {
 		font-family: "Space Grotesk Variable", sans-serif;
-		font-weight: 400;
+		font-weight: 500;
 		font-size: clamp(7vmin, 4rem, 10vmin);
 		word-wrap: break-word;
 	}
@@ -588,6 +631,9 @@ import "@fontsource-variable/lexend-deca";
 		animation-name: shiftLastName;
 		animation-duration: 1ms;
 		animation-timeline: scroll(block nearest);
+	}
+	.logo {
+		height: 50px;
 	}
 	.contacts {
 		flex: 1;
