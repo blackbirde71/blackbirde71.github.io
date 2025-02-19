@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Portfolio" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
 
@@ -98,14 +98,17 @@
 
         .pdf {
             position: relative;
-            z-index: 9090909090;
+            z-index: 999999;
             filter: brightness(80%);
             height: 70vh;
             width: 100%;
+            border: 2px solid var(--primary);
+            background: var(--bg-color);
         }
 
         .pdf iframe {
             position: absolute;
+            z-index: 999999;
             top: 0;
             left: 0;
             width: 100%;
@@ -114,8 +117,9 @@
 
         img {
             position: relative;
-            z-index: 9090909090;
+            z-index: 90;
             filter: brightness(80%);
+            max-width: 100%;
         }
 
         .crt-overlay {
@@ -187,6 +191,7 @@
             --bg-color: #000716;
             --dim: rgba(74, 157, 255, 0.7);
             --border: rgba(74, 157, 255, 0.3);
+            --transition-speed: 0.3s;
         }
 
         * {
@@ -201,6 +206,7 @@
             min-height: 100vh;
             color: var(--primary);
             padding: 20px;
+            overflow-x: hidden;
         }
 
         /* Header bar */
@@ -210,6 +216,9 @@
             padding: 8px 16px;
             margin-bottom: 20px;
             font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         /* Main container */
@@ -233,16 +242,34 @@
             background: var(--primary);
             color: var(--bg-color);
             padding: 8px 12px;
+            height: 40px;
             font-weight: 500;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
+        .menu-toggle {
+            background: transparent;
+            border: none;
+            color: var(--bg-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0 5px;
+            font-weight: bold;
+        }
+
         .terminal-content {
             padding: 20px;
             overflow-y: auto;
             flex-grow: 1;
+            transition: max-height var(--transition-speed) ease;
+        }
+
+        .nav-content.collapsed {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0;
         }
 
         .nav-item {
@@ -290,6 +317,8 @@
             gap: 10px;
             height: auto;
             object-fit: contain;
+            display: flex;
+            flex-direction: column;
         }
 
         .status-bar {
@@ -373,17 +402,6 @@
             margin: 0 auto;
         }
 
-        @media (max-width: 768px) {
-            .main-container {
-                grid-template-columns: 1fr;
-            }
-
-            .terminal {
-                height: auto;
-                min-height: 300px;
-            }
-        }
-
         .img-hor {
             display: flex;
             flex-direction: row;
@@ -456,6 +474,79 @@
             background-color: transparent;
             text-decoration: underline;
         }
+
+
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header-bar {
+                display: none;
+            }
+
+            .main-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr;
+                height: auto;
+                min-height: calc(100vh - 20px);
+                gap: 10px;
+            }
+
+            .terminal {
+                height: auto;
+            }
+
+            .flex {
+                flex-direction: column;
+            }
+
+            .img-hor-no-wrap {
+                flex-direction: column;
+            }
+
+            .img-hor-no-wrap img {
+                max-width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .gif-frame {
+                padding: 10px;
+            }
+
+            .progress-text {
+                top: 40px;
+            }
+
+            .pdf-container {
+                height: 70vh;
+                width: 100%;
+                position: relative;
+                overflow: visible;
+                margin-bottom: 30px;
+            }
+
+            .pdf-container iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100% !important;
+                height: 100% !important;
+                z-index: 95;
+            }
+
+            .info-section .pdf {
+                height: 60vh;
+                min-height: 300px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            #navToggle {
+                visibility: hidden;
+            }
+        }
     </style>
 </head>
 
@@ -463,16 +554,20 @@
     <div class="crt"></div>
     <div class="header-bar">
         SYSTEM INTERFACE v1.0
+        <span id="time">00:00:00</span>
     </div>
     <div class="scan-line"></div>
 
-    <div class="main-container">
+    <div class="main-container" id="mainContainer">
         <div class="terminal">
             <div class="terminal-header">
-                NAVIGATION MODULE
-                <span id="time">00:00:00</span>
+                <span>NAVIGATION MODULE</span>
+                <div style="display: flex; align-items: center;">
+                    <!-- <span id="coordinates">X:00 Y:00</span> -->
+                    <button class="menu-toggle" id="navToggle">[+]</button>
+                </div>
             </div>
-            <div class="terminal-content">
+            <div class="terminal-content nav-content" id="navContent">
                 <div class="info-section">
                     <div class="info-header">PROFILE</div>
                     <div class="info-content">
@@ -498,28 +593,18 @@
                     <div class="nav-item" id="nav5" onclick="showProject(5)">05_RANDONAUTING</div>
                     <div class="nav-item" id="nav6" onclick="showProject(6)">06_GEOGRAPHY_FIELDWORK</div>
                 </div>
-
-                <!-- <div class="info-section">
-                    <div class="info-header">PAPERS</div>
-                    <div class="nav-item" onclick="showProject(1)">01_FIBONACCI</div>
-                    <div class="nav-item" onclick="showProject(2)">02_KL_DIVERGENCE</div>
-                </div> -->
-
-                <!-- <div class="status-bar">
-                    <div class="status-indicator"></div>
-                    SYSTEM ACTIVE
-                </div> -->
             </div>
         </div>
 
         <div class="terminal">
             <div class="terminal-header">
                 DATA OUTPUT
-                <span id="coordinates">X:00 Y:00</span>
+                <span id="deviceInfo">TERMINAL</span>
             </div>
             <div class="terminal-content" id="projectContent">
                 <div class="welcome-message">
-                    <span>I am Arman Rysmakhanov and I study Mathematics at Williams College. This website has my expository papers, software products, and other projects.</span>
+                    <span>I am Arman Rysmakhanov and I study Mathematics at Williams College. This website has my
+                        expository papers, software products, and other projects.</span>
                 </div>
             </div>
         </div>
@@ -528,28 +613,63 @@
     <div class="crt-overlay"></div>
 
     <script>
+        if (window.innerWidth < 768) {
+            document.getElementById('navContent').classList.add('collapsed');
+        }
+
+        window.addEventListener('resize', function (event) {
+            console.log(window.innerWidth);
+            if (window.innerWidth > 769) {
+                document.getElementById('navContent').classList.remove('collapsed');
+                document.getElementById('navToggle').textContent = '[-]';
+            } else {
+                document.getElementById('navContent').classList.add('collapsed');
+                document.getElementById('navToggle').textContent = '[+]';
+            }
+        });
+
         function updateTime() {
             const now = new Date();
-            document.getElementById('time').textContent =
-                now.toLocaleTimeString('en-US', {
+            const timeElement = document.getElementById('time');
+            if (timeElement) {
+                timeElement.textContent = now.toLocaleTimeString('en-US', {
                     hour12: false,
                     hour: '2-digit',
                     minute: '2-digit',
                     second: '2-digit'
                 });
+            }
 
             const x = Math.floor(Math.random() * 100);
             const y = Math.floor(Math.random() * 100);
-            document.getElementById('coordinates').textContent =
-                `X:${x.toString().padStart(2, '0')} Y:${y.toString().padStart(2, '0')}`;
+            // document.getElementById('coordinates').textContent =
+            //     `X:${x.toString().padStart(2, '0')} Y:${y.toString().padStart(2, '0')}`;
         }
+
+        document.getElementById('navToggle').addEventListener('click', function () {
+            const navContent = document.getElementById('navContent');
+            const navToggle = document.getElementById('navToggle');
+
+            if (navContent.classList.contains('collapsed')) {
+                navContent.classList.remove('collapsed');
+                navToggle.textContent = '[-]';
+            } else {
+                navContent.classList.add('collapsed');
+                navToggle.textContent = '[+]';
+            }
+        });
 
         function showProject(id) {
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
             });
 
-            document.getElementById('nav' + String(id)).classList.add('active');
+            document.getElementById('nav' + id).classList.add('active');
+
+            if (window.innerWidth <= 768) {
+                document.getElementById('navContent').classList.add('collapsed');
+                document.getElementById('navToggle').textContent = '[+]';
+            }
 
             const content = document.getElementById('projectContent');
 
@@ -581,11 +701,7 @@
                             <div class="info-header">PAPER</div>
                             <div class="info-content">
                                 <div class="pdf">
-                                    <iframe src="./public/webapp/fib.pdf#toolbar=0&navpanes=0&scrollbar=0" 
-                                            width="100%" 
-                                            height="100%" 
-                                            frameborder="0">
-                                    </iframe>
+                                    <iframe src="https://drive.google.com/file/d/1hNtiaa63lPRX28fI9wugWzJBs2Zh3xWY/preview" width="100%" height="100%" frameborder="0"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -617,11 +733,7 @@
                             <div class="info-header">PAPER</div>
                             <div class="info-content">
                                 <div class="pdf">
-                                    <iframe src="./public/webapp/kl.pdf#toolbar=0&navpanes=0&scrollbar=0" 
-                                            width="100%" 
-                                            height="100%" 
-                                            frameborder="0">
-                                    </iframe>
+                                    <iframe src="https://drive.google.com/file/d/1AcbIIt_K1p0XzNlSTQk0FkjnyDrxL19C/preview" width="100%" height="100%" frameborder="0"></iframe>
                                 </div>
                             </div>
                         </div>
