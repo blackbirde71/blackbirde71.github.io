@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <!-- Background -->
+  <rect width="800" height="800" fill="#000716" />
+  
+  <!-- Main title removed as requested -->
+  
+  <!-- Stage titles -->
+  <g font-family="'IBM Plex Mono', monospace" font-size="20" fill="#4A9DFF">
+    <text x="200" y="130" text-anchor="middle">1. SELECTION</text>
+    <text x="600" y="130" text-anchor="middle">2. EXPANSION</text>
+    <text x="200" y="430" text-anchor="middle">3. SIMULATION</text>
+    <text x="600" y="430" text-anchor="middle">4. BACKPROPAGATION</text>
+  </g>
+  
+  <!-- 1. Selection tree - adjusted scale to fit better -->
+  <g transform="translate(200,250) scale(0.85)">
+    <!-- Edges -->
+    <g stroke="#4A9DFF" stroke-width="2">
+      <path d="M0,-50 L-40,0" />
+      <path d="M0,-50 L40,0" stroke-dasharray="5,3" />
+      <path d="M-40,0 L-70,50" stroke-dasharray="5,3" />
+      <path d="M-40,0 L-10,50" stroke="#4A9DFF" stroke-width="3" />
+      <path d="M-10,50 L-30,100" stroke="#4A9DFF" stroke-width="3" />
+      <path d="M-10,50 L10,100" stroke-dasharray="5,3" />
+    </g>
+    
+    <!-- Nodes -->
+    <g fill="#000716" stroke="#4A9DFF" stroke-width="2">
+      <circle cx="0" cy="-50" r="15" />
+      <circle cx="-40" cy="0" r="15" />
+      <circle cx="40" cy="0" r="12" fill-opacity="0.5" stroke-opacity="0.5" />
+      <circle cx="-70" cy="50" r="10" fill-opacity="0.5" stroke-opacity="0.5" />
+      <circle cx="-10" cy="50" r="15" />
+      <circle cx="-30" cy="100" r="15" />
+      <circle cx="10" cy="100" r="10" fill-opacity="0.5" stroke-opacity="0.5" />
+    </g>
+    
+    <!-- Highlight path -->
+    <path d="M0,-50 L-40,0 L-10,50 L-30,100" fill="none" stroke="#4A9DFF" stroke-width="1" stroke-opacity="0.3" />
+  </g>
+  
+  <!-- 2. Expansion tree - scaled to fit better -->
+  <g transform="translate(600,250) scale(0.85)">
+    <!-- Edges -->
+    <g stroke="#4A9DFF" stroke-width="2">
+      <path d="M0,-50 L-40,0" />
+      <path d="M0,-50 L40,0" stroke-dasharray="5,3" />
+      <path d="M-40,0 L-70,50" stroke-dasharray="5,3" />
+      <path d="M-40,0 L-10,50" />
+      <path d="M-10,50 L-30,100" />
+      <path d="M-10,50 L10,100" stroke="#4A9DFF" stroke-width="3" />
+      <!-- New nodes -->
+      <path d="M10,100 L-10,150" stroke="#4A9DFF" stroke-width="3" stroke-dasharray="2,2" />
+      <path d="M10,100 L30,150" stroke="#4A9DFF" stroke-width="3" stroke-dasharray="2,2" />
+    </g>
+    
+    <!-- Nodes -->
+    <g fill="#000716" stroke="#4A9DFF" stroke-width="2">
+      <circle cx="0" cy="-50" r="15" />
+      <circle cx="-40" cy="0" r="15" />
+      <circle cx="40" cy="0" r="12" fill-opacity="0.5" stroke-opacity="0.5" />
+      <circle cx="-70" cy="50" r="10" fill-opacity="0.5" stroke-opacity="0.5" />
+      <circle cx="-10" cy="50" r="15" />
+      <circle cx="-30" cy="100" r="15" />
+      <circle cx="10" cy="100" r="15" />
+      <!-- New nodes -->
+      <circle cx="-10" cy="150" r="12" stroke="#4A9DFF" stroke-width="3" stroke-dasharray="2,2" />
+      <circle cx="30" cy="150" r="12" stroke="#4A9DFF" stroke-width="3" stroke-dasharray="2,2" />
+    </g>
+  </g>
+  
+  <!-- 3. Simulation tree - scaled to fit better -->
+  <g transform="translate(200,550) scale(0.85)">
+    <!-- Edges -->
+    <g stroke="#4A9DFF" stroke-width="2">
+      <path d="M0,-50 L-40,0" />
+      <path d="M0,-50 L40,0" stroke-dasharray="5,3" />
+      <path d="M-40,0 L-70,50" stroke-dasharray="5,3" />
+      <path d="M-40,0 L-10,50" />
+      <path d="M-10,50 L-30,100" />
+      <path d="M-10,50 L10,100" />
+      <!-- Simulation path -->
+      <path d="M10,100 C40,120 20,150 50,170" stroke="#4A9DFF" stroke-width="2" fill="none" stroke-dasharray="1,2" />
+    </g>
+    
+    <!-- Nodes -->
+    <g fill="#000716" stroke="#4A9DFF" stroke-width="2">
+      <circle cx="0" cy="-50" r="15" />
+      <circle cx="-40" cy="0" r="15" />
+      <circle cx="40" cy="0" r="12" fill-opacity="0.5" stroke-opacity="0.5" />
+      <circle cx="-70" cy="50" r="10" fill-opacity="0.5" stroke-opacity="0.5" />
+      <circle cx="-10" cy="50" r="15" />
+      <circle cx="-30" cy="100" r="15" />
+      <circle cx="10" cy="100" r="15" />
+    </g>
+    
+    <!-- Random simulation -->
+    <circle cx="50" cy="170" r="10" fill="#4A9DFF" stroke="none" />
+  </g>
+  
+  <!-- 4. Backpropagation tree - scaled to fit better and fixed text positions -->
+  <g transform="translate(600,550) scale(0.85)">
+    <!-- Edges -->
+    <g stroke="#4A9DFF" stroke-width="2">
+      <path d="M0,-50 L-40,0" />
+      <path d="M0,-50 L40,0" stroke-dasharray="5,3" />
+      <path d="M-40,0 L-70,50" stroke-dasharray="5,3" />
+      <path d="M-40,0 L-10,50" />
+      <path d="M-10,50 L-30,100" />
+      <path d="M-10,50 L10,100" />
+    </g>
+    
+    <!-- Backpropagation path -->
+    <path d="M10,100 L-10,50 L-40,0 L0,-50" fill="none" stroke="#4A9DFF" stroke-width="6" stroke-opacity="0.3" />
+    
+    <!-- Nodes -->
+    <g fill="#000716" stroke="#4A9DFF" stroke-width="2">
+      <circle cx="0" cy="-50" r="15" />
+      <circle cx="-40" cy="0" r="15" />
+      <circle cx="40" cy="0" r="12" fill-opacity="0.5" stroke-opacity="0.5" />
+      <circle cx="-70" cy="50" r="10" fill-opacity="0.5" stroke-opacity="0.5" />
+      <circle cx="-10" cy="50" r="15" />
+      <circle cx="-30" cy="100" r="15" />
+      <circle cx="10" cy="100" r="15" />
+    </g>
+    
+    <!-- Updated values - fixed text positions -->
+    <g font-family="'IBM Plex Mono', monospace" font-size="10" fill="#4A9DFF">
+      <text x="20" y="-50" text-anchor="middle">+1</text>
+      <text x="-25" y="0" text-anchor="middle">+1</text>
+      <text x="5" y="50" text-anchor="middle">+1</text>
+      <text x="25" y="100" text-anchor="middle">+1</text>
+    </g>
+  </g>
+  
+  <!-- Text descriptions positioned above the images -->
+  <g font-family="'IBM Plex Mono', monospace" font-size="12" fill="rgba(74, 157, 255, 0.8)">
+    <text x="200" y="180" text-anchor="middle">Select most promising node</text>
+    <text x="600" y="180" text-anchor="middle">Create new node(s)</text>
+    <text x="200" y="480" text-anchor="middle">Random playout to terminal state</text>
+    <text x="600" y="480" text-anchor="middle">Update win/visit stats upward</text>
+  </g>
+  
+  <!-- Arrowhead marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4A9DFF" />
+    </marker>
+  </defs>
+</svg>

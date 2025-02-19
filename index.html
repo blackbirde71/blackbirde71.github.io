@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Portfolio" />
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+        /* CSS for CRT lines were based on code by Alec Lownes https://aleclownes.com/2017/02/01/crt-display.html  */
+        @keyframes flicker {
+            0% {
+                opacity: 0.27861;
+            }
+
+            5% {
+                opacity: 0.34769;
+            }
+
+            10% {
+                opacity: 0.23604;
+            }
+
+            15% {
+                opacity: 0.90626;
+            }
+
+            20% {
+                opacity: 0.18128;
+            }
+
+            25% {
+                opacity: 0.83891;
+            }
+
+            30% {
+                opacity: 0.65583;
+            }
+
+            35% {
+                opacity: 0.67807;
+            }
+
+            40% {
+                opacity: 0.26559;
+            }
+
+            45% {
+                opacity: 0.84693;
+            }
+
+            50% {
+                opacity: 0.96019;
+            }
+
+            55% {
+                opacity: 0.08594;
+            }
+
+            60% {
+                opacity: 0.20313;
+            }
+
+            65% {
+                opacity: 0.71988;
+            }
+
+            70% {
+                opacity: 0.53455;
+            }
+
+            75% {
+                opacity: 0.37288;
+            }
+
+            80% {
+                opacity: 0.71428;
+            }
+
+            85% {
+                opacity: 0.70419;
+            }
+
+            90% {
+                opacity: 0.7003;
+            }
+
+            95% {
+                opacity: 0.36108;
+            }
+
+            100% {
+                opacity: 0.24387;
+            }
+        }
+
+        .pdf {
+            position: relative;
+            z-index: 9090909090;
+            filter: brightness(80%);
+            height: 70vh;
+            width: 100%;
+        }
+
+        .pdf iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        img {
+            position: relative;
+            z-index: 9090909090;
+            filter: brightness(80%);
+        }
+
+        .crt-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .crt-overlay::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: rgba(18, 16, 16, 0.1);
+            opacity: 0;
+            animation: flicker 0.15s infinite;
+        }
+
+        .crt-overlay::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+                    rgba(0, 0, 0, 0.25) 50%),
+                linear-gradient(90deg,
+                    rgba(255, 0, 0, 0.06),
+                    rgba(0, 255, 0, 0.02),
+                    rgba(0, 0, 255, 0.06));
+            background-size:
+                100% 2px,
+                3px 100%;
+        }
+
+        .scan-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            opacity: 0.15;
+            animation: scanning 8s linear infinite;
+            z-index: 999;
+        }
+
+        @keyframes scanning {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+
+        :root {
+            --primary: #4A9DFF;
+            --bg-color: #000716;
+            --dim: rgba(74, 157, 255, 0.7);
+            --border: rgba(74, 157, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            color: var(--primary);
+            padding: 20px;
+        }
+
+        /* Header bar */
+        .header-bar {
+            background: var(--primary);
+            color: var(--bg-color);
+            padding: 8px 16px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        /* Main container */
+        .main-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+            height: calc(100vh - 100px);
+        }
+
+        .terminal {
+            border: 2px solid var(--primary);
+            background: var(--bg-color);
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .terminal-header {
+            background: var(--primary);
+            color: var(--bg-color);
+            padding: 8px 12px;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .terminal-content {
+            padding: 20px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .nav-item {
+            padding: 12px;
+            margin: 8px 0;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            border-color: var(--primary);
+            background: rgba(74, 157, 255, 0.1);
+        }
+
+        .nav-item.active {
+            background: var(--primary);
+            color: var(--bg-color);
+        }
+
+        .info-section {
+            margin-bottom: 24px;
+        }
+
+        .info-header {
+            background: var(--primary);
+            color: var(--bg-color);
+            padding: 8px 12px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .info-content {
+            padding: 0 12px;
+            color: var(--dim);
+        }
+
+        .info-content img {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .img-ver {
+            gap: 10px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .status-bar {
+            border: 2px solid var(--primary);
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            font-size: 0.9em;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            margin-right: 12px;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .progress-container {
+            border: 2px solid var(--primary);
+            background-color: var(--bg-color);
+            height: 24px;
+            margin: 12px 0;
+            position: relative;
+            padding: 2px;
+            box-shadow: 0 0 0 1px var(--bg-color);
+            outline: 1px solid var(--dim);
+            margin-bottom: 36px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: transparent;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .progress-bar::before {
+            content: "";
+            width: 100%;
+            background-image: repeating-linear-gradient(to right,
+                    var(--primary),
+                    var(--primary) 8px,
+                    transparent 8px,
+                    transparent 12px);
+        }
+
+        .progress-text {
+            position: absolute;
+            right: 8px;
+            top: 40px;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .welcome-message {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        .welcome-message span {
+            max-width: 500px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+
+            .terminal {
+                height: auto;
+                min-height: 300px;
+            }
+        }
+
+        .img-hor {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-content: space-between;
+            gap: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .img-hor img {
+            max-height: 50vh;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .img-hor-no-wrap {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .img-hor-no-wrap img {
+            max-width: 32%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .flex {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+
+        .gif-frame {
+            flex: 3;
+            padding: 45px;
+            aspect-ratio: 1920 / 1000;
+        }
+
+        .gif {
+            object-fit: cover;
+            object-position: 50% 0%;
+            height: 100%;
+            width: 100%;
+        }
+
+        a:link {
+            color: var(--primary);
+            background-color: transparent;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: var(--primary);
+            background-color: transparent;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--primary);
+            background-color: transparent;
+            text-decoration: underline;
+        }
+
+        a:active {
+            color: var(--primary);
+            background-color: transparent;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="crt"></div>
+    <div class="header-bar">
+        SYSTEM INTERFACE v1.0
+    </div>
+    <div class="scan-line"></div>
+
+    <div class="main-container">
+        <div class="terminal">
+            <div class="terminal-header">
+                NAVIGATION MODULE
+                <span id="time">00:00:00</span>
+            </div>
+            <div class="terminal-content">
+                <div class="info-section">
+                    <div class="info-header">PROFILE</div>
+                    <div class="info-content">
+                        <p>ARMAN RYSMAKHANOV</p>
+                        <p>WILLIAMS COLLEGE</p>
+                        <p>MATHEMATICS</p>
+                        <p>ar21 at williams edu</p>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <div class="info-header">MATH WRITING</div>
+                    <div class="nav-item" id="nav101" onclick="showProject(101)">01_FIBONACCI</div>
+                    <div class="nav-item" id="nav102" onclick="showProject(102)">02_KL_DIVERGENCE</div>
+                </div>
+
+                <div class="info-section">
+                    <div class="info-header">PROJECTS</div>
+                    <div class="nav-item" id="nav1" onclick="showProject(1)">01_BLACKJACK_MCTS</div>
+                    <div class="nav-item" id="nav2" onclick="showProject(2)">02_SOL</div>
+                    <div class="nav-item" id="nav3" onclick="showProject(3)">03_DIARY</div>
+                    <div class="nav-item" id="nav4" onclick="showProject(4)">04_HANDWRITING</div>
+                    <div class="nav-item" id="nav5" onclick="showProject(5)">05_RANDONAUTING</div>
+                    <div class="nav-item" id="nav6" onclick="showProject(6)">06_GEOGRAPHY_FIELDWORK</div>
+                </div>
+
+                <!-- <div class="info-section">
+                    <div class="info-header">PAPERS</div>
+                    <div class="nav-item" onclick="showProject(1)">01_FIBONACCI</div>
+                    <div class="nav-item" onclick="showProject(2)">02_KL_DIVERGENCE</div>
+                </div> -->
+
+                <!-- <div class="status-bar">
+                    <div class="status-indicator"></div>
+                    SYSTEM ACTIVE
+                </div> -->
+            </div>
+        </div>
+
+        <div class="terminal">
+            <div class="terminal-header">
+                DATA OUTPUT
+                <span id="coordinates">X:00 Y:00</span>
+            </div>
+            <div class="terminal-content" id="projectContent">
+                <div class="welcome-message">
+                    <span>I am Arman Rysmakhanov and I study Mathematics at Williams College. This website has my expository papers, software products, and other projects.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="crt-overlay"></div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('time').textContent =
+                now.toLocaleTimeString('en-US', {
+                    hour12: false,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+
+            const x = Math.floor(Math.random() * 100);
+            const y = Math.floor(Math.random() * 100);
+            document.getElementById('coordinates').textContent =
+                `X:${x.toString().padStart(2, '0')} Y:${y.toString().padStart(2, '0')}`;
+        }
+
+        function showProject(id) {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            document.getElementById('nav' + String(id)).classList.add('active');
+
+            const content = document.getElementById('projectContent');
+
+            const projects = {
+                101: `
+                    <div class="info-section">
+                        <div class="info-header">STATUS</div>
+                        <div class="info-content">
+                            > Review of algorithm analysis
+                            > Several drafts
+                            > Preparing for submission
+                            > ...
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width:90%"></div>
+                                <div class="progress-text">90% COMPLETE</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="info-section" style="flex:1">
+                            <div class="info-header">DESCRIPTION</div>
+                            <div class="info-content">
+                                I collaborated on an expository article about the most efficient ways to compute Fibonacci numbers.
+                                </br></br>
+                                We are preparing to submit it to Fibonacci Quarterly.
+                            </div>
+                        </div>
+                        <div class="info-section" style="flex:3">
+                            <div class="info-header">PAPER</div>
+                            <div class="info-content">
+                                <div class="pdf">
+                                    <iframe src="./public/webapp/fib.pdf#toolbar=0&navpanes=0&scrollbar=0" 
+                                            width="100%" 
+                                            height="100%" 
+                                            frameborder="0">
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                102: `
+                    <div class="info-section">
+                        <div class="info-header">STATUS</div>
+                        <div class="info-content">
+                            > Review of probability and information theory
+                            > Draft
+                            > Visualization
+                            > Submitted as class final project
+
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width:100%"></div>
+                                <div class="progress-text">100% COMPLETE</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="info-section" style="flex:1">
+                            <div class="info-header">DESCRIPTION</div>
+                            <div class="info-content">
+                                This is an expository paper that builds intuition about KL divergence and how it can be approximated, part of MATH331 (Fall 2024).
+                            </div>
+                        </div>
+                        <div class="info-section" style="flex:3">
+                            <div class="info-header">PAPER</div>
+                            <div class="info-content">
+                                <div class="pdf">
+                                    <iframe src="./public/webapp/kl.pdf#toolbar=0&navpanes=0&scrollbar=0" 
+                                            width="100%" 
+                                            height="100%" 
+                                            frameborder="0">
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                1: `
+                    <div class="info-section">
+                        <div class="info-header">PROJECT: BLACKJACK ENGINE</div>
+                        <div class="info-content">
+                            I collaborated on a Blackjack engine using Monte Carlo tree search (MCTS) published <a href="https://github.com/blackbirde71/MonteCarloSearchBlackjack" data-astro-cid-j7pv25f6="">here</a>.
+                        </div>
+                    </div>
+                    <div class="info-section">
+                        <div class="info-header">STATUS</div>
+                        <div class="info-content">
+                            > Literature review on MCTS
+                            > Algorithm implementation
+                            > Submitted as final project
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width:100%"></div>
+                                <div class="progress-text">100% COMPLETE</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="info-section" style="flex:1">
+                            <!-- svg generated by Claude! -->
+                            <div class="info-content">
+                                <object data="./public/webapp/mcts.svg" ></object>
+                            </div>
+                        </div>
+                        <div class="info-section" style="flex:1">
+                            <div class="info-header">DESCRIPTION</div>
+                            <div class="info-content">
+                                The engine allows the user to play Blackjack alongside the AI against a dealer following standard casino rules. At the core of the AI is an abstract class implementing the key components of MCTS, with a derived class adapting it to the specific dynamics and rules of Blackjack. On each turn, the MCTS algorithm selects the most promising game state to explore using an upper confidence bound that balances exploitation of high-performing states with exploration of less visited states. It then runs fast Monte Carlo simulations from that state to a game outcome and backpropagates the result to update its estimates for each preceding state. Over many simulations, this allows the engine to build a highly tuned decision tree for optimizing its Blackjack play. Although MCTS may be an overkill for Blackjack, it ultimately serves as a proof of concept and a stepping stone for developing more complex game engines.
+                            </div>
+                        </div>
+                    </div>
+                `,
+                2: `
+                    <div class="info-section">
+                        <div class="info-header">PROJECT: SOL</div>
+                        <div class="info-content">
+                            Interactive campus events map platform.
+                            </br>
+                            I am currently working with my friend on a website to
+						improve campus life. Users will be able to see, create,
+						and join the events on campus.
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <div class="info-header">STATUS</div>
+                        
+                        <div class="info-content">
+                            > Development in progress
+                            > Testing phase initiated
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width: 60%"></div>
+                            <div class="progress-text">60% COMPLETE</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex">
+                        <div class="info-section" style="flex:1">
+                            <div class="info-header">TECHNICAL STACK</div>
+                            <div class="info-content">
+                                FRONTEND: Flutter </br></br>
+                                BACKEND: Go (Echo) </br></br>
+                                DATABASE: MongoDB  </br></br>
+                                FEATURES: Custom tile server </br></br>
+                            </div>
+                        </div>
+
+                        <div class="info-section" style="flex:2">
+                            <div class="info-header">SCREENSHOTS</div>
+                            <div class="info-content">
+                                <div class="img-hor">
+                                    <img src="./public/webapp/sol1.png" />
+                                    <img src="./public/webapp/sol2.png" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                3: `
+                    <div class="info-section">
+                        <div class="info-header">PROJECT: MOOD-TRACKING DIARY</div>
+                        <div class="info-content">
+                            Personal diary: web app with note-taking and mood-tracking
+					features.
+                            </br>
+                            As part of my IB Computer Science class, I created a
+					personalized web app that integrates note-taking and
+					mood-tracking functionalities into a seamless personal diary
+					experience.
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <div class="info-header">STATUS</div>
+                        <div class="info-content">
+                            > Cconducted a problem interview
+                            > Designed the interface
+                            > Developed the app
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width:100%"></div>
+                                <div class="progress-text">100% COMPLETE</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-section">
+                        <div class="info-header">DEMO</div>
+                        
+                        <div class="info-content">
+                            <div class="gif-frame">
+                                <img class="gif" src="./public/webapp/Organizer Gif.gif" />
+                            </div>
+                        </div>
+                    </div>
+                        <details class="spoiler">
+                             <summary class="info-header">DETAILS</summary>
+                            <div class=info-content>
+                            <div class="block"></div>
+                                The front-end of the web app is built using React
+                                (including Recharts for data visualization), providing a
+                                responsive and intuitive user interface. On the backend,
+                                Express.js handles the server-side operations and
+                                Mongoose controls storing and retrieving data from the
+                                MongoDB database.
+                            <div class="block"></div>
+                            <div class="img-hor">
+                                <img src="./public/webapp/Flowchart1.png" />
+                                <img src="./public/webapp/Flowchart2.png" />
+                            </div>
+                            <div class="img-hor">
+                                <img src="./public/webapp/MigrationChart.png" />
+                            </div>
+                            <div class="block"></div>
+                            <p class="t">
+                                I adhered to the principles of the engineering design
+                                process. From researching the problem and specifying
+                                design requirements to the preliminary design and user
+                                testing, each step was a deliberate and iterative
+                                progression. An example is the script to migrate
+                                existing notes from Google Keep included after user
+                                feedback to streamline the transition process.
+                            </p>
+                            </div>
+                        </details>
+                `,
+                4: `
+            <div class="info-section">
+                <div class="info-header">PROJECT: HANDWRITING DEVICE</div>
+                <div class="info-content">
+                    Device that autonomously teaches handwriting to visually learners with visual impairment / blindness.
+                </div>
+            </div>
+            <div class="info-section">
+                <div class="info-header">STATUS</div>
+                <div class="info-content">
+                    > Problem interviews conducted
+                    > Ideation
+                    > Prototyping: 3D printing and woodcutting
+                    > 1st place in the Engineering category (Science Fair, National level)
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width:100%"></div>
+                        <div class="progress-text">100% COMPLETE</div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="info-section" style="flex:1">
+                    <div class="info-header">IMPLEMENTATION</div>
+                    <div class="info-content">
+                        HARDWARE: CNC-based mechanism </br></br>
+                        CONTROL: G-code programming </br></br>
+                        INTERFACE: JavaScript voice UI </br></br>
+                        COST: <$100 per unit </br></br>
+                    </div>
+                </div>
+            
+                <div class="info-section" style="flex:1">
+                    <div class="info-header">RESULTS</div>
+                    <div class="info-content">
+                        > Successfully tested </br></br>
+                        > Positive user feedback </br></br>
+                        > Cost-effective solution </br></br>
+                        > Minimal assistance required </br></br>
+                    </div>
+                </div>
+
+                <div class="info-section" style="flex:1">
+                    <div class="info-header">PHOTO + SCHEME</div>
+                    <div class="info-content">
+                        <div class="img-ver">
+                            <img src="./public/webapp/jazgysh.jpg" />
+                            <img src="./public/webapp/JazgyshScheme.png" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `,
+                5: `
+            <div class="info-section">
+                <div class="info-header">PROJECT: RANDO</div>
+                <div class="info-content">
+                    Mobile app for exploring random locations.
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-header">STATUS</div>
+                <div class="info-content">
+                    > Issues with existing randonauting solutions
+                    > Simple web prototype
+                    > Learned mobile development
+                    > Was published on Play Store
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width:100%"></div>
+                        <div class="progress-text">100% COMPLETE</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-header">DESCRIPTION</div>
+                    <div class="info-content">
+                        I developed an app for randonauting: generating random
+                    geographic coordinates and then exploring the area
+                    associated with those coordinates. The idea is that by
+                    introducing an element of randomness into the process,
+                    individuals may experience novel and unexpected
+                    discoveries, leading to a sense of adventure and
+                    exploration.
+                </div>
+            </div>
+
+            <div class="flex">
+                <div class="info-section">
+                    <div class="info-header">TECHNICAL STACK</div>
+                    <div class="info-content">
+                        FRAMEWORK: React Native </br></br>
+                        CLOUD: AWS </br></br>
+                        MAP DATA: OpenStreetMap </br></br>
+                        ROUTING: Open Source Routing Machine (OSRM) </br></br>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <div class="info-header">FEATURES</div>
+                    <div class="info-content">
+                        > Custom map rendering </br></br>
+                        > Location generation </br></br>
+                        > Route calculation </br></br>
+                    </div>
+                </div>
+
+                <div class="info-section" style="flex:4">
+                    <div class="info-header">INTERFACE</div>
+                    <div class="info-content">
+                        <div class="img-hor-no-wrap">
+                            <img src="./public/webapp/rando1.png" />
+                            <img src="./public/webapp/rando2.png" />
+                            <img src="./public/webapp/rando3.png" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `,
+                6: `
+            <div class="info-section">
+                <div class="info-header">PROJECT: STATISTICS/GEOGRAPHY</div>
+                <div class="info-content">
+                    > Learned about urban geography > Conducted fieldwork > Analyzed data > Prepared a report
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 100%"></div>
+                        <div class="progress-text">100% COMPLETE</div>
+                    </div>
+                </div>
+            </div>
+            <div class="info-section">
+                <div class="info-header">DESCRIPTION</div>
+                    <div class="info-content">
+                        I conducted an analysis of the urban environment during a
+                    field trip for my Geography class. Focusing on key
+                    parameters such as noise levels, congestion, and built
+                    environment quality, the project aimed to provide insights
+                    into spatial inequality in terms of infrastructure and
+                    living conditions between the neighborhoods of varying
+                    affluence along one of the main avenues of the city.
+                    Although it was not required for the class, I used the
+                    Plotly library for Python for visualizations and NumPy,
+                    Pandas, and SciPy for data manipulation.
+                </div>
+            </div>
+             <div class="flex">
+                <div class="info-section" style="flex:1">
+                    <div class="info-header">TOOLS USED</div>
+                    <div class="info-content">
+                        VISUALIZATION: Plotly (Python) </br></br>
+                        ANALYSIS: NumPy, Pandas </br></br>
+                        STATISTICS: SciPy </br></br>
+                        DATA: Field measurements </br></br>
+                    </div>
+                </div>
+
+                <div class="info-section" style="flex:1">
+                    <div class="info-header">ANALYSIS SCOPE</div>
+                    <div class="info-content">
+                        > Noise level mapping </br></br>
+                        > Congestion patterns </br></br>
+                        > Quality of infrastructure</br></br>
+                        > Spatial inequality </br></br>
+                    </div>
+                </div>
+
+                <div class="info-section" style="flex:3">
+                    <div class="info-header">DATA</div>
+                    <div class="info-content">
+                        <div class="img-ver">
+                            <img src="./public/webapp/geo1.png" />
+                            <img src="./public/webapp/geo2.png" />
+                        </div>
+                    </div>
+                </div>
+             </div>
+        `,
+
+            };
+
+            content.innerHTML = projects[id] || `
+                <div class="info-section">
+                    <div class="info-header">PROJECT ${id}</div>
+                    <div class="info-content">
+                        Loading project data...
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 30%"></div>
+                            <div class="progress-text">LOADING</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+
+</html>
