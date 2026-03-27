@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #0d0d0d;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #d8d8d8;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #707070;
+            --accent: #4338ca;
+            --border: #2a2a2a;
+            --spacing: 1.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', Georgia, serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        header {
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 4rem;
+        }
+
+        nav {
+            padding: 2rem 0;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            font-size: 18px;
+        }
+
+        .nav-list a {
+            color: var(--text-tertiary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-list a:hover,
+        .nav-list a.active {
+            color: var(--text-primary);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin: 3rem 0 1.5rem 0;
+            color: var(--text-primary);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 300;
+            line-height: 1.4;
+            color: var(--text-primary);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-tertiary);
+            font-style: italic;
+            margin-bottom: 3rem;
+        }
+
+        .entry {
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+        }
+
+        .entry:last-of-type {
+            border-bottom: none;
+        }
+
+        .entry-meta {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            margin-bottom: 0.5rem;
+            font-style: italic;
+            display: flex;
+            gap: 1rem;
+            row-gap: 0;
+            flex-wrap: wrap;
+        }
+
+        .entry-status {
+            color: var(--text-tertiary);
+        }
+
+        .status-completed {
+            color: var(--accent);
+        }
+
+        .status-in-progress {
+            color: #d97706;
+        }
+
+        .status-published {
+            color: var(--accent);
+        }
+
+        .entry-title {
+            margin-bottom: 0.75rem;
+        }
+
+        .entry-description {
+            margin-bottom: 1rem;
+            font-size: 16px;
+        }
+
+        .entry-tags {
+            font-size: 14px;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .entry-extra {
+            margin-top: 1rem;
+        }
+
+        .entry-extra h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .entry-extra p {
+            font-size: 16px;
+            margin-bottom: 0;
+        }
+
+        .entry-link {
+            display: inline-block;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 0.5rem;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+
+        .entry-link:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        .pdf-spoiler {
+            margin-top: 1rem;
+        }
+
+        .pdf-toggle {
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+            font-style: italic;
+            padding: 0;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pdf-toggle:hover {
+            color: var(--text-primary);
+        }
+
+        .pdf-toggle::before {
+            content: "📄";
+        }
+
+        .pdf-toggle::after {
+            content: "▶";
+            font-size: 10px;
+            transition: transform 0.2s ease;
+        }
+
+        .pdf-toggle.expanded::after {
+            transform: rotate(90deg);
+        }
+
+        .pdf-content {
+            display: none;
+            margin-top: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .pdf-content.visible {
+            display: block;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 600px;
+            border: none;
+            background: #fff;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--text-primary);
+        }
+
+        .coming-soon {
+            text-align: center;
+            color: var(--text-tertiary);
+            font-style: italic;
+            font-size: 1.2rem;
+            margin: 4rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            header {
+                margin-bottom: 0;
+            }
+
+            body {
+                font-size: 16px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                margin: 2rem 0 1rem 0;
+            }
+
+            .nav-list {
+                gap: 1rem;
+                font-size: 14px;
+            }
+
+            .epigraph {
+                padding: 0 1rem;
+            }
+
+            .entry-meta {
+                row-gap: 0.5rem;
+            }
+        }
+
+        .entry {
+            transition: opacity 0.2s ease;
+        }
+
+        .entry:hover {
+            opacity: 0.9;
+        }
+
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            header {
+                border-bottom: 1px solid #ccc;
+            }
+
+            .entry {
+                border-bottom: 1px solid #ccc;
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <ul class="nav-list">
+                    𝔄rmie
+                    <li><a href="#" class="nav-link active" data-section="about">about</a></li>
+                    <li><a href="#" class="nav-link" data-section="research">writing</a></li>
+                    <!-- <li><a href="#" class="nav-link" data-section="projects">projects</a></li> -->
+                    <li><a href="#" class="nav-link" data-section="blog">blog</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section id="about" class="content-section active">
+
+                <h2>About me.</h2>
+
+                Hi, I am Armie! I am junior at Williams College, and I am also a visiting student at Harvard University
+                for this academic year.
+
+                I am interested in mathematics and its applications, as well as coding and history. Most recently, I've
+                been learning about machine learning, non-commutative algebra, and some political theory! <br><br>
+
+                This website has my writing and projects.
+
+                You can reach me at [ar21 at williams dot edu] or [arysmakhanov at college dot harvard dot edu].
+            </section>
+
+
+            <section id="research" class="content-section">
+                <h2>My research articles, expository papers, and class projects.</h2>
+
+                <article class="entry">
+                    <div class="entry-meta">
+                        <span>Summer 2025</span>
+                        <span>SMALL REU Paper</span>
+                        <span class="entry-status status-in-progress">Draft</span>
+                    </div>
+                    <div class="entry-meta">
+                        <span>Authors &nbsp; (alphabetical order):</span>
+                        <span>Steven J Miller</span>
+                        <span>Arman Rysmakhanov</span>
+                    </div>
+                    <h3 class="entry-title">Spectral Properties of Dense Barabási-Albert Random Multigraphs</h3>
+                    <p class="entry-description">
+                        The spectral properties of the Barabási-Albert (BA) random graph are studied in the multi-graph
+                        variant, where new vertices may connect to the same existing vertex multiple times. We derive
+                        the explicit spectral density of the adjacency matrix of such graphs.
+                    </p>
+                    <div class="entry-tags">
+                        Spectral graph theory, random matrix theory
+                    </div>
+                </article>
+
+                <hr style="border: 0.3px solid var(--border);">
+
+                <article class="entry">
+                    <div class="entry-meta">
+                        <span>Summer 2025</span>
+                        <span>SMALL REU Presentation</span>
+                        <span>Presented at SUMRY REU</span>
+                        <span class="entry-status status-in-progress">In progress</span>
+                    </div>
+                    <div class="entry-meta">
+                        <span>Author:</span>
+                        <span>Arman Rysmakhanov</span>
+                    </div>
+                    <h3 class="entry-title">Eigenvalues of Matrix-Valued Matrices</h3>
+                    <p class="entry-description">
+                        This was a short exploration and attempt at formalization of the algebraic structure and
+                        spectral properties of matrix-valued matrices, \(M_n(M_k(\mathbb C))\), where each entry of an
+                        \(n \times n\) matrix is itself a \(k \times k\) matrix.
+
+                        I plan to work on this more seriously during the school year.
+                    </p>
+                    <div class="entry-tags">
+                        Abstract linear algebra, spectral theory
+                    </div>
+                    <div class="pdf-spoiler">
+                        <button class="pdf-toggle" onclick="togglePDF(this)">View PDF</button>
+                        <div class="pdf-content">
+                            <iframe class="pdf-viewer" src="public/pdfjs/web/viewer.html?file=../../webapp/mat.pdf"
+                                title="Eigenvalues of Matrix-Valued Matrices"></iframe>
+                        </div>
+                    </div>
+                </article>
+
+                <hr style="border: 0.3px solid var(--border);">
+
+                <article class="entry">
+                    <div class="entry-meta">
+                        <span>Summer 2025</span>
+                        <span>SMALL REU Paper</span>
+                        <span>Presented at Young Mathematicians Conference</span>
+                        <span class="entry-status status-completed">Preprint</span>
+                    </div>
+                    <div class="entry-meta">
+                        <span>Authors &ensp; (alphabetical order):</span>
+                        <span>Ivan Bortnovskyi</span>
+                        <span>Julian Duvivier</span>
+                        <span>Pedro Espinosa</span>
+                        <span>Michael Lucas</span>
+                        <span>Steven J Miller</span>
+                        <span>Tiancheng Pan</span>
+                        <span>Arman Rysmakhanov</span>
+                        <span>Iana Vranesko</span>
+                        <span>Ren Watson</span>
+                        <span>Steven Zanetti</span>
+                    </div>
+                    <h3 class="entry-title">Properties Of Multidimensional Vector Zeckendorf Representations</h3>
+                    <p class="entry-description">
+                        Zeckendorf's Theorem gives that for all \(k \geq 3\), every nonnegative integer has a unique
+                        \(k\)-Zeckendorf representation as a sum of distinct \(k\)-bonacci numbers, where no \(k\)
+                        consecutive \(k\)-bonacci numbers are present in the representation. Anderson and
+                        Bicknell-Johnson extend this result to the multidimensional context: letting the \(k\)-bonacci
+                        vectors \(\vec{X}_i \in \Z^{k-1}\) be given by \(\vec{X}_0=\vec{0}\), \(\vec{X}_{-i}=\vec{e}_i\)
+                        for \(1 \leq i \leq k-1\), and \(\vec{X}_n=\sum_{i=1}^k \vec{X}_{n-i}\) for all \(n \in \Z\),
+                        they show that for all \(k \geq 3\), every \(\vec{v} \in \mathbb Z^{k-1}\) has a unique
+                        \(k\)-bonacci vector Zeckendorf representation, a sum of distinct \(k\)-bonacci vectors where no
+                        \(k\) consecutive \(k\)-bonacci vectors are present in the representation. Their proof provides
+                        an inductive algorithm for finding such representations. We present two improved algorithms for
+                        finding the \(k\)-bonacci vector Zeckendorf representation of \(\vec{v}\) and analyze their
+                        relative efficiency. We utilize a projection map \(S_n:\mathbb Z^{k-1} \to \mathbb Z_{\geq 0}\),
+                        introduced by Anderson, that reduces the study of \(k\)-bonacci vector representations to the
+                        setting of \(k\)-bonacci number representations, provided a lower bound is established for the
+                        most negatively indexed \(k\)-bonacci vector present in the \(k\)-bonacci vector Zeckendorf
+                        representation of \(\vec{v}\). Using this map and a bijection between \(\mathbb Z^{k-1}\) and
+                        \(\mathbb Z_{\geq 0}\), we further show that the number of and gaps between summands in
+                        \(k\)-bonacci vector Zeckendorf representations exhibit the same properties as those in
+                        \(k\)-Zeckendorf representations and that \(k\)-bonacci vector Zeckendorf representations
+                        exhibit summand minimality.
+                    </p>
+                    <div class="entry-tags">
+                        Additive number theory, analytic combinatorics, algorithms
+                    </div>
+                    <div class="pdf-spoiler">
+                        <button class="pdf-toggle" onclick="togglePDF(this)">View PDF</button>
+                        <div class="pdf-content">
+                            <iframe class="pdf-viewer" src="public/pdfjs/web/viewer.html?file=../../webapp/veczeck.pdf"
+                                title="Comparing Left and Right Quotient Sets in Groups"></iframe>
+                        </div>
+                    </div>
+                </article>
+
+                <hr style="border: 0.3px solid var(--border);">
+
+                <article class="entry">
+                    <div class="entry-meta">
+                        <span>Summer 2025</span>
+                        <span>SMALL REU Paper</span>
+                        <span>Presented at Young Mathematicians Conference, SUMRY REU</span>
+                        <span class="entry-status status-completed">Preprint</span>
+                    </div>
+                    <div class="entry-meta">
+                        <span>Authors &ensp; (alphabetical order):</span>
+                        <span>Julian Duvivier</span>
+                        <span>Xiaoyao Huang</span>
+                        <span>Ava Kennon</span>
+                        <span>Say-Yeon Kwon</span>
+                        <span>Steven J Miller</span>
+                        <span>Arman Rysmakhanov</span>
+                        <span>Pramana Saldin</span>
+                        <span>Ren Watson</span>
+                    </div>
+                    <h3 class="entry-title">Comparing Left and Right Quotient Sets in Groups</h3>
+                    <p class="entry-description">
+                        <i>Abstract:</i> While the right and left quotient sets are equal if \(G\) is abelian,
+                        subtleties arise when \(G\) is a nonabelian group, where the cardinality difference \(|AA^{-1}|
+                        - |A^{-1}A|\) may be take on arbitrarily large values. Using the results of Martin and O'Bryant
+                        on the cardinality differences of sum sets and difference sets in \(\mathbb{Z}\), we prove in
+                        the infinite dihedral group, \(D_\infty \cong \Z \rtimes \Z/2\Z\), every integer difference is
+                        achievable. Further, we prove that in \(F_2\), the free group on \(2\) generators, an integer
+                        difference is achievable if and only if that integer is even, and we explicitly construct
+                        subsets of \(F_2\) that achieve every even integer. We further determine the minimum cardinality
+                        of \(A \subset G\) so that the difference between the cardinalities of the left and right
+                        quotient sets is nonzero, depending on the existence of order \(2\) elements in \(G\). To prove
+                        these results, we construct difference graphs \(D_A\) and \(D_{A^{-1}}\) which encode equality,
+                        respectively, in the right and left quotient sets. We observe a bijection from edges in \(D_A\)
+                        to edges in \(D_{A^{-1}}\) and count connected components in order to obtain our results on
+                        cardinality differences \(|AA^{-1}| - |A^{-1}A|\).
+                    </p>
+                    <div class="entry-tags">
+                        Group theory, combinatorics, graph theory
+                    </div>
+                    <div class="pdf-spoiler">
+                        <button class="pdf-toggle" onclick="togglePDF(this)">View PDF</button>
+                        <div class="pdf-content">
+                            <iframe class="pdf-viewer" src="public/pdfjs/web/viewer.html?file=../../webapp/quot.pdf"
+                                title="Comparing Left and Right Quotient Sets in Groups"></iframe>
+                        </div>
+                    </div>
+                </article>
+
+                <hr style="border: 0.3px solid var(--border);">
+
+                <article class="entry">
+                    <div class="entry-meta">
+                        <span>Spring 2025</span>
+                        <span class="entry-status status-published">Submitted for publication at Fibonacci
+                            Quarterly</span>
+                    </div>
+                    <div class="entry-meta">
+                        <span>Authors &ensp; (alphabetical order):</span>
+                        <span> Sheafification of G </span>
+                        <span> Steven J Miller </span>
+                        <span> Arman Rysmakhanov </span>
+                    </div>
+                    <h3 class="entry-title">Computing Fibonacci numbers efficiently</h3>
+                    <p class="entry-description">
+                        I collaborated on an expository article about the most efficient ways to compute Fibonacci
+                        numbers.
+                    </p>
+                    <p class="entry-description">
+                        <i>Abstract:</i> This article serves as a companion to the video essay by Sheafification of G on
+                        computing large Fibonacci numbers quickly. We follow the same progression of methods—from na
+                        ̈ıve recursion to sophisticated Fourier transforms—and elaborate the concepts that were
+                        impractical to discuss in video format.
+                    </p>
+                    <div class="entry-tags">
+                        Fibonacci numbers, algorithms
+                    </div>
+                    <div class="pdf-spoiler">
+                        <button class="pdf-toggle" onclick="togglePDF(this)">View PDF</button>
+                        <div class="pdf-content">
+                            <iframe src="public/pdfjs/web/viewer.html?file=../../webapp/fib.pdf" class="pdf-viewer"
+                                title="Computing Fibonacci numbers efficiently">
+                            </iframe>
+                        </div>
+                    </div>
+                </article>
+
+                <hr style="border: 0.3px solid var(--border);">
+
+                <article class="entry">
+                    <div class="entry-meta">
+                        <span>Fall 2024</span>
+                        <span>MATH 331</span>
+                        <span class="entry-status status-completed">Completed</span>
+                    </div>
+                    <div class="entry-meta">
+                        <span>Authors &ensp; (alphabetical order):</span>
+                        <span>Arman Rysmakhanov</span>
+                        <span>Cameron White</span>
+                    </div>
+                    <h3 class="entry-title">KL divergence</h3>
+                    <p class="entry-description">
+                        This is an expository paper that builds intuition about KL divergence and how it can be
+                        approximated, part of MATH331.
+                    </p>
+                    <div class="entry-tags">
+                        Information theory, statistics, probability
+                    </div>
+                    <div class="pdf-spoiler">
+                        <button class="pdf-toggle" onclick="togglePDF(this)">View PDF</button>
+                        <div class="pdf-content">
+                            
+                            <iframe class="pdf-viewer" src="public/pdfjs/web/viewer.html?file=../../webapp/kl.pdf"
+                                title="KL divergence"></iframe>
+                        </div>
+                    </div>
+                </article>
+
+            </section>
+
+            <section id="projects" class="content-section">
+                <h2>My software projects.</h2>
+
+                <article class="entry" style="margin-top: 0;">
+                    <!-- svg generated by ChatGPT! -->
+                    <object data="public/webapp/lockin.svg"
+                        style="height: auto; width: min(500px, 90vw); display: block; margin: 0 auto;"></object>
+                    <div class="entry-meta">
+                        <span class="entry-status status-completed">Completed</span>
+                    </div>
+                    <h3 class="entry-title">Lock In</h3>
+                    <p class="entry-description">
+                        LockIn is an edtech platform designed to help college students learn more efficiently by
+                        tracking lecture content, student engagement, and slide material in real time. It combines data
+                        streams from lecture audio, slides, and the student's expressed attentiveness (via Hume's
+                        expressive API) to identify and explain concepts that a student might have missed during class.
+                        Using a React frontend and Flask backend, it maps periods of low engagement to corresponding
+                        lecture segments and generates personalized study guides or strategies.
+                    </p>
+                    <div class="entry-tags">
+                        React, Flask, Python, JavaScript, LLM integration
+                    </div>
+                    <a href="https://devpost.com/software/cognitive" class="entry-link">View on DevPost</a>
+                </article>
+
+                <hr style="border: 0.3px solid var(--border);">
+
+                <article class="entry" style="margin-top: 0;">
+                    <!-- svg generated by Claude! -->
+                    <object data="public/webapp/mcts.svg"
+                        style="height: auto; width: min(500px, 90vw); display: block; margin: 0 auto;"></object>
+                    <div class="entry-meta">
+                        <span class="entry-status status-completed">Completed</span>
+                    </div>
+                    <h3 class="entry-title">Blackjack Engine</h3>
+                    <p class="entry-description">
+                        The engine allows the user to play Blackjack alongside the AI against a dealer following
+                        standard casino rules. At the core of the AI is an abstract class implementing the key
+                        components of MCTS, with a derived class adapting it to the specific dynamics and rules of
+                        Blackjack. On each turn, the MCTS algorithm selects the most promising game state to explore
+                        using an upper confidence bound that balances exploitation of high-performing states with
+                        exploration of less visited states. It then runs fast Monte Carlo simulations from that state to
+                        a game outcome and backpropagates the result to update its estimates for each preceding state.
+                        Over many simulations, this allows the engine to build a highly tuned decision tree for
+                        optimizing its Blackjack play. Although MCTS is definitely an overkill for Blackjack, it
+                        ultimately serves as a proof of concept and a stepping stone for developing more complex game
+                        engines.
+                    </p>
+                    <div class="entry-tags">
+                        Java, MCTS, strategy
+                    </div>
+                    <a href="https://github.com/blackbirde71/MonteCarloSearchBlackjack" class="entry-link">View on
+                        GitHub</a>
+
+                    <!-- <div class="entry-extra">
+                        <h4>Implementation Details</h4>
+                        <p>aaaa</p>
+                    </div> -->
+                </article>
+
+                <article class="entry">
+                    <div class="entry-meta">
+                        <span class="entry-status status-completed">Completed</span>
+                    </div>
+                    <h3 class="entry-title">Handwriting Tutor</h3>
+                    <p class="entry-description">
+                        This was a high school hardware project: we built a cheap device that autonomously teaches
+                        handwriting to people with visual impairment / blindness. We created a CNC-router-like
+                        technology to create a tactile learning interface and tested it with real clients. The device
+                        uses a voice UI to guide the user through the learning process, and it can be controlled via
+                        voice commands. The device was built using a Raspberry Pi, stepper motors, and 3D-printed parts.
+                        The software was written in JavaScript. We won the 1st place at a science fair (national level).
+                    </p>
+                    <div class="entry-tags">
+                        CNC, G-code, JavaScript, hardware, voice UI
+                    </div>
+                    <div class="pdf-spoiler">
+                        <button class="pdf-toggle" onclick="togglePDF(this)">View picture</button>
+                        <div class="pdf-content" style="border: 0;">
+                            <img src="public/webapp/jazgysh.jpg"
+                                style="height: auto; width: min(500px, 90vw); display: block; margin: 0 auto;" />
+                        </div>
+                    </div>
+                </article>
+
+            </section>
+
+
+            <section id="blog" class="content-section">
+                <div class="coming-soon">
+                    coming soon!
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        renderMathInElement(document.body);
+        function togglePDF(button) {
+            const pdfContent = button.nextElementSibling;
+            const isVisible = pdfContent.classList.contains('visible');
+
+            if (isVisible) {
+                pdfContent.classList.remove('visible');
+                button.classList.remove('expanded');
+                button.textContent = 'View PDF';
+            } else {
+                pdfContent.classList.add('visible');
+                button.classList.add('expanded');
+                button.textContent = 'Hide';
+            }
+        }
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+
+                link.classList.add('active');
+
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                const targetSection = link.getAttribute('data-section');
+                document.getElementById(targetSection).classList.add('active');
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+        });
+    </script>
+</body>
+
+</html>
