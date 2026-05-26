@@ -1,0 +1,71 @@
+<svg width="1000" height="820" viewBox="0 0 1000 820" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    text { font-family: 'IBM Plex Mono', monospace; fill: #A0A0A0; text-anchor: middle; }
+    .title { font-size: 26px; font-weight: bold; }
+    .step { font-size: 20px; }
+    .label { font-size: 14px; }
+    .circle { fill: #000716; stroke: #A0A0A0; stroke-width: 2; }
+    line { stroke: #A0A0A0; stroke-width: 2; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1000" height="820" fill="#0d0d0d"/>
+
+  <!-- Diagram title -->
+  <text class="title" x="500" y="60">LOCKIN: LEARNING PIPELINE</text>
+
+  <!-- Step 1 -->
+  <text class="step" x="500" y="120">1. MULTIMODAL INPUTS</text>
+
+  <!-- Input labels -->
+  <text class="label" x="300" y="160">Audio</text>
+  <circle class="circle" cx="300" cy="200" r="25"/>
+  <text class="label" x="500" y="160">Slides</text>
+  <circle class="circle" cx="500" cy="200" r="25"/>
+  <text class="label" x="700" y="160">Expressions</text>
+  <circle class="circle" cx="700" cy="200" r="25"/>
+
+  <!-- Arrows from inputs to Step 2 -->
+  <line x1="300" y1="225" x2="420" y2="280"/>
+  <line x1="500" y1="225" x2="500" y2="280"/>
+  <line x1="700" y1="225" x2="580" y2="280"/>
+
+  <!-- Step 2 -->
+  <text class="step" x="500" y="320">2. ENGAGEMENT PROCESSING</text>
+  <circle class="circle" cx="500" cy="380" r="30"/>
+
+  <!-- Step 2 arrows: θ=100°,80° -->
+  <line x1="495" y1="410" x2="340" y2="480"/>
+  <line x1="505" y1="410" x2="660" y2="480"/>
+
+  <!-- Step 3a -->
+  <text class="step" x="300" y="520">3a. STUDY TIPS</text>
+  <circle class="circle" cx="300" cy="580" r="28"/>
+
+  <!-- Step 3b -->
+  <text class="step" x="700" y="520">3b. LECTURE ANALYSIS</text>
+  <circle class="circle" cx="700" cy="580" r="28"/>
+
+  <!-- Step 3a arrows: θ=100°,90°,80° -->
+  <line x1="285" y1="606" x2="240" y2="660"/>
+  <line x1="300" y1="608" x2="300" y2="660"/>
+  <line x1="315" y1="606" x2="360" y2="660"/>
+
+  <!-- Tip labels -->
+  <text class="label" x="240" y="680">Tip A</text>
+  <circle class="circle" cx="240" cy="710" r="18"/>
+  <text class="label" x="300" y="680">Tip B</text>
+  <circle class="circle" cx="300" cy="710" r="18"/>
+  <text class="label" x="360" y="680">Tip C</text>
+  <circle class="circle" cx="360" cy="710" r="18"/>
+
+  <!-- Step 3b arrows: θ=100°,80° -->
+  <line x1="686" y1="606" x2="640" y2="660"/>
+  <line x1="714" y1="606" x2="760" y2="660"/>
+
+  <!-- Analysis labels -->
+  <text class="label" x="640" y="680">Weak Slide</text>
+  <circle class="circle" cx="640" cy="710" r="18"/>
+  <text class="label" x="760" y="680">Low focus</text>
+  <circle class="circle" cx="760" cy="710" r="18"/>
+</svg>
